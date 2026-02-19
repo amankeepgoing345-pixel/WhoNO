@@ -1,0 +1,153 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=0.1">
+<title>
+WhoNo.ai
+</title>
+<style>
+*{
+margin:0%;
+padding:0%;
+overflow:hidden;
+display:flex;
+align-items:center;
+box-sizing:border-box;
+justify-content:center;
+font-family: 'Roboto', sans-serif;
+}
+body{
+background-color:black;
+}
+.simple-ai{
+position:absolute;
+top:50px;
+left:45px;
+transform:translate(-50px, -50px);
+border:2px solid white;
+width:98%;
+height:90%;
+background-color:white;
+color:black;
+border-radius:10px;
+display:flex;
+flex-direction:row;
+align-items:center;
+padding:20px;
+margin:20px;
+box-shadow:0 0 15px white;
+}
+.simple-ai h1{
+position:absolute;
+top:15px;
+left:25px;
+font-size:50px;
+text-shadow:5px 10px 0 lightgray;
+}
+.simple-ai p{
+position:absolute;
+top:70px;
+left:25px;
+font-size:30px;
+}
+.simple-ai .input-box{
+position:absolute;
+bottom:1px;
+border:none;
+outline:none;
+background-color:lightgray;
+height:50px;
+width:100%;
+border-radius:5px;
+color:black;
+box-shadow:0 0 15px black;
+}
+.simple-ai input{
+position:absolute;
+left:10px;
+background-color:black;
+border:none;
+outline:none;
+background-color:lightgray;
+height:50px;
+width:100%;
+}
+.user-box{
+position:absolute;
+right:1px;
+top:1px;
+border:2px solid black;
+width:60%;
+height:88%;
+background-color:black;
+border-top-left-radius:20px;
+color:white;
+}
+</style>
+</head>
+<body>
+ <div class="simple-ai">
+<h1>AI</h1>
+<p>Hello <br>brother <br>
+welcome to<br>
+ the <br>
+WhoNo ai.</p>
+<div class="user-box">
+<p id="user-output">hi there</p>
+</div>
+<div class="input-box">
+    <input type="text" id="ai-input" placeholder="Ask Anything & press Enter....">
+</div>
+</div>
+<script>
+
+    const aiInput = document.getElementById('ai-input');
+ // --- LITTLE BROTHER AI LOGIC ---
+aiInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+        const userText = aiInput.value.toLowerCase(); // Make it lowercase to catch everything
+        let response = "";
+
+        // Little Brother's "Brain" (Keywords)
+        if (userText.includes("hello") || userText.includes("hi")) {
+            response = "Hey there, Buddy! What can i help you?";
+        } else if (userText.includes("who are you")) {
+            response = "I'm WhoNo, your AI, A little helper!";
+        } else if (userText.includes("game")) {
+            response = "I love games! Check out the menu for fun stuff.";
+        } else if (userText.includes("help")) {
+            response = "I'm here! Tell me what can help you?";
+        } else if (userText.includes("creator") || userText.includes("made you")) {
+            response = "A very talented developer spent a whole month making me!";
+        } else if (userText === "") {
+            response = "Don't be shy, say something!";
+        }
+            else if(userText.includes("fun")){
+                response = "Im relly sorry. I can't help you with that";
+        }
+        else if(userText.includes("sex") || userText.includes("xxx")){
+            response = "I cannot fulfill this request. I am programmed to be a helpful and safe AI assistant. My safety guidelines prohibit me from generating sexually explicit content or imagery.";
+        }
+else if(userText.includes("bye") || userText.includes("by")){
+response = "By brother! Have a sweet dreem.";
+}
+else if(userText.includes("image")){
+response = "I can not be able to full fill this request. Is there anything you want to ask?";
+}
+else if(userText.includes("how are You") || userText.includes("how are u")){
+response = "Kwai! it's so sweet. Im fine how about you?";
+}
+         else{
+            // If he doesn't know the answer
+            response = "Hmm, I'm still learning. Try asking about 'games' or say 'hi'!";
+        }
+        // Show the answer
+        const userOutPut = document.getElementById('user-output').innerText = response;
+        
+        aiInput.value = ""; // Clear the box
+        aiInput.focus();
+    }
+});
+</script>
+</body>
+</html>
