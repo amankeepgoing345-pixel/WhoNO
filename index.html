@@ -1,153 +1,197 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=0.1">
-<title>
-WhoNo.ai
-</title>
-<style>
-*{
-margin:0%;
-padding:0%;
-overflow:hidden;
-display:flex;
-align-items:center;
-box-sizing:border-box;
-justify-content:center;
-font-family: 'Roboto', sans-serif;
-}
-body{
-background-color:black;
-}
-.simple-ai{
-position:absolute;
-top:50px;
-left:45px;
-transform:translate(-50px, -50px);
-border:2px solid white;
-width:98%;
-height:90%;
-background-color:white;
-color:black;
-border-radius:10px;
-display:flex;
-flex-direction:row;
-align-items:center;
-padding:20px;
-margin:20px;
-box-shadow:0 0 15px white;
-}
-.simple-ai h1{
-position:absolute;
-top:15px;
-left:25px;
-font-size:50px;
-text-shadow:5px 10px 0 lightgray;
-}
-.simple-ai p{
-position:absolute;
-top:70px;
-left:25px;
-font-size:30px;
-}
-.simple-ai .input-box{
-position:absolute;
-bottom:1px;
-border:none;
-outline:none;
-background-color:lightgray;
-height:50px;
-width:100%;
-border-radius:5px;
-color:black;
-box-shadow:0 0 15px black;
-}
-.simple-ai input{
-position:absolute;
-left:10px;
-background-color:black;
-border:none;
-outline:none;
-background-color:lightgray;
-height:50px;
-width:100%;
-}
-.user-box{
-position:absolute;
-right:1px;
-top:1px;
-border:2px solid black;
-width:60%;
-height:88%;
-background-color:black;
-border-top-left-radius:20px;
-color:white;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhoNo.ai</title>
+    <style>
+        /* Base Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        /* Main Container */
+        .simple-ai {
+            background-color: white;
+            width: 100%;
+            max-width: 1000px;
+            height: 90vh;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: row; /* Desktop side-by-side */
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        /* Left Side: Info Section */
+        .info-section {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: white;
+            color: black;
+        }
+
+        .info-section h1 {
+            font-size: clamp(30px, 5vw, 50px);
+            text-shadow: 3px 3px 0 lightgray;
+            margin-bottom: 10px;
+        }
+
+        .info-section p {
+            font-size: clamp(18px, 3vw, 24px);
+            line-height: 1.4;
+        }
+
+        /* Right Side: Chat Display */
+        .user-box {
+            flex: 1.5;
+            background-color: #111;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border-left: 2px solid #333;
+            text-align: center;
+        }
+
+        #user-output {
+            font-size: 22px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        /* Bottom Input Bar */
+        .input-container {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .input-box {
+            width: 100%;
+            height: 50px;
+            background-color: lightgray;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: black;
+        }
+
+        /* RESPONSIVE BREAKPOINT FOR MOBILE */
+        @media (max-width: 768px) {
+            .simple-ai {
+                flex-direction: column; /* Stack top to bottom */
+                height: 95vh;
+            }
+
+            .info-section {
+                flex: 0.5; /* Takes less space on mobile */
+                padding: 20px;
+                text-align: center;
+            }
+
+            .user-box {
+                flex: 2;
+                border-left: none;
+                border-top: 2px solid #333;
+                padding-bottom: 80px; /* Space for input */
+            }
+
+            .info-section p br {
+                display: none; /* Remove line breaks for a cleaner mobile look */
+            }
+        }
+    </style>
 </head>
 <body>
- <div class="simple-ai">
-<h1>AI</h1>
-<p>Hello <br>brother <br>
-welcome to<br>
- the <br>
-WhoNo ai.</p>
-<div class="user-box">
-<p id="user-output">hi there</p>
+
+<div class="simple-ai">
+    <div class="info-section">
+        <h1>WhoNo AI</h1>
+        <p>Hello brother, welcome to the WhoNo AI assistant.</p>
+    </div>
+
+    <div class="user-box">
+        <p id="user-output">Hi there! Ask me something.</p>
+    </div>
+
+    <div class="input-container">
+        <div class="input-box">
+            <input type="text" id="ai-input" placeholder="Ask Anything & press Enter..." autocomplete="off">
+        </div>
+    </div>
 </div>
-<div class="input-box">
-    <input type="text" id="ai-input" placeholder="Ask Anything & press Enter....">
-</div>
-</div>
+
 <script>
-
     const aiInput = document.getElementById('ai-input');
- // --- LITTLE BROTHER AI LOGIC ---
-aiInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        const userText = aiInput.value.toLowerCase(); // Make it lowercase to catch everything
-        let response = "";
+    const userOutput = document.getElementById('user-output');
 
-        // Little Brother's "Brain" (Keywords)
-        if (userText.includes("hello") || userText.includes("hi")) {
-            response = "Hey there, Buddy! What can i help you?";
-        } else if (userText.includes("who are you")) {
-            response = "I'm WhoNo, your AI, A little helper!";
-        } else if (userText.includes("game")) {
-            response = "I love games! Check out the menu for fun stuff.";
-        } else if (userText.includes("help")) {
-            response = "I'm here! Tell me what can help you?";
-        } else if (userText.includes("creator") || userText.includes("made you")) {
-            response = "A very talented developer spent a whole month making me!";
-        } else if (userText === "") {
-            response = "Don't be shy, say something!";
+    aiInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            const userText = aiInput.value.toLowerCase().trim();
+            let response = "";
+
+            if (userText.includes("hello") || userText.includes("hi")) {
+                response = "Hey there, Buddy! What can I help you with?";
+            } else if (userText.includes("who are you")) {
+                response = "I'm WhoNo, your AI, a little helper!";
+            } else if (userText.includes("game")) {
+                response = "I love games! Check out the menu for fun stuff.";
+            } else if (userText.includes("help")) {
+                response = "I'm here! Tell me what I can help you with?";
+            } else if (userText.includes("creator") || userText.includes("made you")) {
+                response = "A very talented developer spent a whole month making me!";
+            } else if (userText === "") {
+                response = "Don't be shy, say something!";
+            } else if (userText.includes("fun")) {
+                response = "I'm really sorry. I can't help you with that.";
+            } else if (userText.includes("sex") || userText.includes("xxx")) {
+                response = "I cannot fulfill this request. I am programmed to be safe.";
+            } else if (userText.includes("bye") || userText.includes("by")) {
+                response = "Bye brother! Have a sweet dream.";
+            } else if (userText.includes("how are you") || userText.includes("how are u")) {
+                response = "Kwai! It's so sweet. I'm fine, how about you?";
+            } else {
+                response = "Hmm, I'm still learning. Try asking about 'games' or say 'hi'!";
+            }
+
+            userOutput.innerText = response;
+            aiInput.value = ""; 
         }
-            else if(userText.includes("fun")){
-                response = "Im relly sorry. I can't help you with that";
-        }
-        else if(userText.includes("sex") || userText.includes("xxx")){
-            response = "I cannot fulfill this request. I am programmed to be a helpful and safe AI assistant. My safety guidelines prohibit me from generating sexually explicit content or imagery.";
-        }
-else if(userText.includes("bye") || userText.includes("by")){
-response = "By brother! Have a sweet dreem.";
-}
-else if(userText.includes("image")){
-response = "I can not be able to full fill this request. Is there anything you want to ask?";
-}
-else if(userText.includes("how are You") || userText.includes("how are u")){
-response = "Kwai! it's so sweet. Im fine how about you?";
-}
-         else{
-            // If he doesn't know the answer
-            response = "Hmm, I'm still learning. Try asking about 'games' or say 'hi'!";
-        }
-        // Show the answer
-        const userOutPut = document.getElementById('user-output').innerText = response;
-        
-        aiInput.value = ""; // Clear the box
-        aiInput.focus();
-    }
-});
+    });
 </script>
+
 </body>
 </html>
